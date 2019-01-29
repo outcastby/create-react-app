@@ -367,6 +367,7 @@ module.exports = function(webpackEnv) {
                   [
                     'babel-plugin-named-asset-import',
                     'babel-preset-react-app',
+                    '@babel/plugin-proposal-optional-chaining',
                     'react-dev-utils',
                     'react-scripts',
                   ]
@@ -418,6 +419,7 @@ module.exports = function(webpackEnv) {
                     : isEnvDevelopment && 'development',
                   [
                     'babel-plugin-named-asset-import',
+                    '@babel/plugin-proposal-optional-chaining',
                     'babel-preset-react-app',
                     'react-dev-utils',
                     'react-scripts',
