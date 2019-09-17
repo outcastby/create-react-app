@@ -31,7 +31,7 @@ serve -h
 
 You don’t necessarily need a static server in order to run a Create React App project in production. It works just as fine integrated into an existing dynamic one.
 
-Here’s a programmatic example using [Node](https://nodejs.org/) and [Express](http://expressjs.com/):
+Here’s a programmatic example using [Node](https://nodejs.org/) and [Express](https://expressjs.com/):
 
 ```javascript
 const express = require('express');
@@ -79,7 +79,7 @@ If you’re using [Apache HTTP Server](https://httpd.apache.org/), you need to c
 
 It will get copied to the `build` folder when you run `npm run build`.
 
-If you’re using [Apache Tomcat](http://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
+If you’re using [Apache Tomcat](https://tomcat.apache.org/), you need to follow [this Stack Overflow answer](https://stackoverflow.com/a/41249464/4878474).
 
 Now requests to `/todos/42` will be handled correctly both in development and in production.
 
@@ -90,7 +90,7 @@ service worker navigation routing can be configured or disabled by
 [`eject`ing](available-scripts.md#npm-run-eject) and then modifying the
 [`navigateFallback`](https://github.com/GoogleChrome/sw-precache#navigatefallback-string)
 and [`navigateFallbackWhitelist`](https://github.com/GoogleChrome/sw-precache#navigatefallbackwhitelist-arrayregexp)
-options of the `SWPreachePlugin` [configuration](../config/webpack.config.prod.js).
+options of the `SWPrecachePlugin` [configuration](../config/webpack.config.prod.js).
 
 When users install your app to the homescreen of their device the default configuration will make a shortcut to `/index.html`. This may not work for client-side routers which expect the app to be served from `/`. Edit the web app manifest at [`public/manifest.json`](public/manifest.json) and change `start_url` to match the required URL scheme, for example:
 
@@ -150,7 +150,7 @@ For example, to create a build environment for a staging environment:
    ```json
    {
      "scripts": {
-       "build:staging": "env-cmd .env.staging npm run build"
+       "build:staging": "env-cmd -f .env.staging npm run build"
      }
    }
    ```
@@ -159,6 +159,17 @@ Now you can run `npm run build:staging` to build with the staging environment co
 You can specify other environments in the same way.
 
 Variables in `.env.production` will be used as fallback because `NODE_ENV` will always be set to `production` for a build.
+
+## [AWS Amplify](http://console.amplify.aws)
+
+The AWS Amplify Console provides continuous deployment and hosting for modern web apps (single page apps and static site generators) with serverless backends. The Amplify Console offers globally available CDNs, easy custom domain setup, feature branch deployments, and password protection.
+
+1. Login to the Amplify Console [here](https://console.aws.amazon.com/amplify/home).
+1. Connect your Create React App repo and pick a branch. If you're looking for a Create React App+Amplify starter, try the [create-react-app-auth-amplify starter](https://github.com/swaminator/create-react-app-auth-amplify) that demonstrates setting up auth in 10 minutes with Create React App.
+1. The Amplify Console automatically detects the build settings. Choose Next.
+1. Choose _Save and deploy_.
+
+If the build succeeds, the app is deployed and hosted on a global CDN with an amplifyapp.com domain. You can now continuously deploy changes to your frontend or backend. Continuous deployment allows developers to deploy updates to their frontend and backend on every code commit to their Git repository.
 
 ## [Azure](https://azure.microsoft.com/)
 
@@ -209,7 +220,7 @@ Then run the `firebase init` command from your project’s root. You need to cho
 
 IMPORTANT: you need to set proper HTTP caching headers for `service-worker.js` file in `firebase.json` file or you will not be able to see changes after first deployment ([issue #2440](https://github.com/facebook/create-react-app/issues/2440)). It should be added inside `"hosting"` key like next:
 
-```
+```json
 {
   "hosting": {
     ...
@@ -321,7 +332,7 @@ npm run deploy
 
 Finally, make sure **GitHub Pages** option in your GitHub project settings is set to use the `gh-pages` branch:
 
-<img src="http://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
+<img src="https://i.imgur.com/HUjEr9l.png" width="500" alt="gh-pages branch setting">
 
 ### Step 5: Optionally, configure the domain
 
@@ -425,25 +436,43 @@ To support `pushState`, make sure to create a `public/_redirects` file with the 
 
 When you build the project, Create React App will place the `public` folder contents into the build output.
 
-## [Now](https://zeit.co/now)
+## [ZEIT Now](https://zeit.co)
 
-Now offers a zero-configuration single-command deployment. You can use `now` to deploy your app for free.
+[ZEIT Now](https://zeit.co) is a cloud platform for websites and serverless APIs, that you can use to deploy your Create React App projects to your personal domain (or a free `.now.sh` suffixed URL).
 
-1. Install the `now` command-line tool either via the recommended [desktop tool](https://zeit.co/download) or via node with `npm install -g now`.
+This guide will show you how to get started in a few quick steps:
 
-2. Build your app by running `npm run build`.
+### Step 1: Installing Now CLI
 
-3. Move into the build directory by running `cd build`.
+To install their command-line interface with [npm](https://www.npmjs.com/package/now), run the following command:
 
-4. Run `now --name your-project-name` from within the build directory. You will see a **now.sh** URL in your output like this:
+```shell
+npm i -g now
+```
 
-   ```
-   > Ready! https://your-project-name-tpspyhtdtk.now.sh (copied to clipboard)
-   ```
+### Step 2: Deploying
 
-   Paste that URL into your browser when the build is complete, and you will see your deployed app.
+You can deploy your application by running the following command in the root of the project directory:
 
-Details are available in [this article.](https://zeit.co/blog/unlimited-static)
+```shell
+now
+```
+
+**Alternatively**, you can also use their integration for [GitHub](https://zeit.co/github) or [GitLab](https://zeit.co/gitlab).
+
+That’s all!
+
+Your site will now deploy, and you will receive a link similar to the following: https://react.now-examples.now.sh
+
+Out of the box, you are preconfigured for client-side routing compatibility and appropriate default caching headers. This behaviour can be overwritten [like this](https://zeit.co/docs/v2/advanced/routes/).
+
+## [Render](https://render.com)
+
+Render offers free [static site](https://render.com/docs/static-sites) hosting with fully managed SSL, a global CDN and continuous auto deploys from GitHub.
+
+Deploy your app in just a few minutes by following the [Create React App deployment guide](https://render.com/docs/deploy-create-react-app).
+
+Use invite code `cra` to sign up or use [this link](https://render.com/i/cra).
 
 ## [S3](https://aws.amazon.com/s3) and [CloudFront](https://aws.amazon.com/cloudfront/)
 
