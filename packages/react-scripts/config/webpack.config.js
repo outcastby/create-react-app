@@ -396,7 +396,7 @@ module.exports = function(webpackEnv) {
                   'babel-preset-react-app/webpack-overrides'
                 ),
                 // @remove-on-eject-begin
-                babelrc: false,
+                babelrc: true,
                 configFile: false,
                 presets: [require.resolve('babel-preset-react-app')],
                 // Make sure we have a unique cache identifier, erring on the
@@ -410,7 +410,6 @@ module.exports = function(webpackEnv) {
                     : isEnvDevelopment && 'development',
                   [
                     'babel-plugin-named-asset-import',
-                    '@babel/plugin-proposal-optional-chaining',
                     'babel-preset-react-app',
                     'react-dev-utils',
                     'react-scripts',
@@ -446,7 +445,7 @@ module.exports = function(webpackEnv) {
               exclude: /@babel(?:\/|\\{1,2})runtime/,
               loader: require.resolve('babel-loader'),
               options: {
-                babelrc: false,
+                babelrc: true,
                 configFile: false,
                 compact: false,
                 presets: [
@@ -465,7 +464,6 @@ module.exports = function(webpackEnv) {
                     : isEnvDevelopment && 'development',
                   [
                     'babel-plugin-named-asset-import',
-                    '@babel/plugin-proposal-optional-chaining',
                     'babel-preset-react-app',
                     'react-dev-utils',
                     'react-scripts',
